@@ -7,6 +7,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { useTranslation } from "core/i18n";
 import { useGetDeviceReadings } from "core/actions/get-device-readings/get-device-readings.hook";
 import { DeviceDatatable } from "modules/dashboard/device-datatable";
+import { DeviceReadingsForecast } from "modules/dashboard/device/device-readings-forecast";
 
 export default function DeviceDetailPage() {
   const { t } = useTranslation();
@@ -31,6 +32,11 @@ export default function DeviceDetailPage() {
         </Tooltip>
         <Title order={2}>{deviceId}</Title>
       </Group>
+
+      <DeviceReadingsForecast
+        data={data?.deviceReadings.data ?? []}
+        deviceId={deviceId}
+      />
 
       <DeviceDatatable
         data={data?.deviceReadings.data ?? []}

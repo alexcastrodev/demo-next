@@ -1,7 +1,7 @@
 import type { UseMutationOptions } from "@tanstack/react-query";
 import type { ActionByIdParams } from "../_shared/action.types";
 
-export interface DeleteLoggerEventParams extends ActionByIdParams {}
+export type DeleteLoggerEventParams = ActionByIdParams;
 
 export interface DeleteLoggerEventResponse {
   id: number;

@@ -2721,6 +2721,16 @@ hermes-parser@^0.25.1:
   dependencies:
     hermes-estree "0.25.1"
 
+highcharts-react-official@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.2.3.tgz#9496db4a5bb0cf916e8b44a88bb41e66483ae6f1"
+  integrity sha512-2gL8bVGe6Pf75tSe6IB5Ucd0nIOJX7ZrpttQBZVrjN2J9StdVZ12aOinXHIOFvlc6EzP8CbN13WS8NUq+9mptA==
+
+highcharts@^12.3.0:
+  version "12.6.0"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-12.6.0.tgz#5e527c3cc41b858edf8d72f129808a167604a939"
+  integrity sha512-zWwoXECOakJT2huBMqIZOjDNLLgyZFCcfZqTj2g6cvYOGxjF3nvooC+rIaF5aKiharluyGKNflfRNrzOAIjdRg==
+
 hoist-non-react-statics@^3.3.2:
   version "3.3.2"
   resolved "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-3.3.2.tgz"

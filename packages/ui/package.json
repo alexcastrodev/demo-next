@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "highcharts": "^12.3.0",
+    "highcharts-react-official": "^3.2.3",
     "@mantine/core": "^9",
     "@mantine/hooks": "^9",
     "@mantine/modals": "^9",
