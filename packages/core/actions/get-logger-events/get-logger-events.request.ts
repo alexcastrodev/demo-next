@@ -1,11 +1,11 @@
-import { api } from '../../api';
+import { api } from "../../api";
 import type {
   GetLoggerEventsParams,
   GetLoggerEventsResponse,
-} from './get-logger-events.types';
+} from "./get-logger-events.types";
 
 export async function getLoggerEvents(
-  params: GetLoggerEventsParams = {}
+  params: GetLoggerEventsParams = {},
 ): Promise<GetLoggerEventsResponse> {
   const queryParams: Record<string, string | number | boolean> = {};
 
@@ -21,7 +21,7 @@ export async function getLoggerEvents(
     queryParams.device_id = params.device_id;
   }
 
-  return api.get<GetLoggerEventsResponse>('/iot-events', {
+  return api.get<GetLoggerEventsResponse>("/iot-events", {
     params: queryParams,
   });
 }

@@ -1,17 +1,17 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { HttpClient } from './http-client';
+import { HttpClient } from "./http-client";
 
-vi.mock('./interceptors/request', () => ({
+vi.mock("./interceptors/request", () => ({
   applyRequestInterceptor: (headers: Headers) => headers,
 }));
 
-vi.mock('./interceptors/response', () => ({
+vi.mock("./interceptors/response", () => ({
   applyResponseInterceptor: vi.fn(),
 }));
 
 const mockFetch = vi.fn();
-vi.stubGlobal('fetch', mockFetch);
+vi.stubGlobal("fetch", mockFetch);
 
 function makeResponse(body: unknown, status = 200): Response {
   return {
@@ -21,87 +21,93 @@ function makeResponse(body: unknown, status = 200): Response {
   } as Response;
 }
 
-describe('HttpClient', () => {
+describe("HttpClient", () => {
   let client: HttpClient;
 
   beforeEach(() => {
-    client = new HttpClient('https://api.example.com');
+    client = new HttpClient("https://api.example.com");
     mockFetch.mockReset();
   });
 
-  it('GET — calls correct URL', async () => {
+  it("GET — calls correct URL", async () => {
     mockFetch.mockResolvedValue(makeResponse({ id: 1 }));
 
-    await client.get('/users');
+    await client.get("/users");
 
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api.example.com/users',
-      expect.objectContaining({ method: 'GET' })
+      "https://api.example.com/users",
+      expect.objectContaining({ method: "GET" }),
     );
   });
 
-  it('GET — appends query params', async () => {
+  it("GET — appends query params", async () => {
     mockFetch.mockResolvedValue(makeResponse([]));
 
-    await client.get('/users', { params: { page: 1, active: true } });
+    await client.get("/users", { params: { page: 1, active: true } });
 
     const [url] = mockFetch.mock.calls[0];
-    expect(url).toContain('page=1');
-    expect(url).toContain('active=true');
+    expect(url).toContain("page=1");
+    expect(url).toContain("active=true");
   });
 
-  it('POST — sends serialized body', async () => {
+  it("POST — sends serialized body", async () => {
     mockFetch.mockResolvedValue(makeResponse({ id: 2 }));
 
-    await client.post('/users', { name: 'Alex' });
+    await client.post("/users", { name: "Alex" });
 
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api.example.com/users',
+      "https://api.example.com/users",
       expect.objectContaining({
-        method: 'POST',
-        body: JSON.stringify({ name: 'Alex' }),
-      })
+        method: "POST",
+        body: JSON.stringify({ name: "Alex" }),
+      }),
     );
   });
 
-  it('PUT — sends serialized body', async () => {
+  it("PUT — sends serialized body", async () => {
     mockFetch.mockResolvedValue(makeResponse({ id: 2 }));
 
-    await client.put('/users/2', { name: 'Alex' });
+    await client.put("/users/2", { name: "Alex" });
 
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api.example.com/users/2',
-      expect.objectContaining({ method: 'PUT', body: JSON.stringify({ name: 'Alex' }) })
+      "https://api.example.com/users/2",
+      expect.objectContaining({
+        method: "PUT",
+        body: JSON.stringify({ name: "Alex" }),
+      }),
     );
   });
 
-  it('PATCH — sends serialized body', async () => {
+  it("PATCH — sends serialized body", async () => {
     mockFetch.mockResolvedValue(makeResponse({ id: 2 }));
 
-    await client.patch('/users/2', { name: 'Alex' });
+    await client.patch("/users/2", { name: "Alex" });
 
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api.example.com/users/2',
-      expect.objectContaining({ method: 'PATCH', body: JSON.stringify({ name: 'Alex' }) })
+      "https://api.example.com/users/2",
+      expect.objectContaining({
+        method: "PATCH",
+        body: JSON.stringify({ name: "Alex" }),
+      }),
     );
   });
 
-  it('DELETE — calls correct URL without body', async () => {
+  it("DELETE — calls correct URL without body", async () => {
     mockFetch.mockResolvedValue(makeResponse(null));
 
-    await client.delete('/users/2');
+    await client.delete("/users/2");
 
     expect(mockFetch).toHaveBeenCalledWith(
-      'https://api.example.com/users/2',
-      expect.objectContaining({ method: 'DELETE', body: undefined })
+      "https://api.example.com/users/2",
+      expect.objectContaining({ method: "DELETE", body: undefined }),
     );
   });
 
-  it('returns parsed JSON response', async () => {
-    mockFetch.mockResolvedValue(makeResponse({ id: 1, name: 'Alex' }));
+  it("returns parsed JSON response", async () => {
+    mockFetch.mockResolvedValue(makeResponse({ id: 1, name: "Alex" }));
 
-    const result = await client.get<{ id: number; name: string }>('/users/1');
+    const result = await client.get<{ id: number; name: string }>("/users/1");
 
-    expect(result).toEqual({ id: 1, name: 'Alex' });
+    expect(result).toEqual({ id: 1, name: "Alex" });
   });
 });

@@ -5,17 +5,21 @@ import {
   useReactTable,
   type ColumnDef,
   type SortingState,
-} from '@tanstack/react-table';
-import { useState } from 'react';
+} from "@tanstack/react-table";
+import { useState } from "react";
 
 interface UseDataTableOptions<TData> {
-  data:             TData[];
-  columns:          ColumnDef<TData, any>[];
+  data: TData[];
+  columns: ColumnDef<TData, any>[];
   defaultPageSize?: number;
 }
 
-export function useDataTable<TData>({ data, columns, defaultPageSize = 10 }: UseDataTableOptions<TData>) {
-  const [sorting, setSorting]   = useState<SortingState>([]);
+export function useDataTable<TData>({
+  data,
+  columns,
+  defaultPageSize = 10,
+}: UseDataTableOptions<TData>) {
+  const [sorting, setSorting] = useState<SortingState>([]);
   const [pageSize, setPageSize] = useState(defaultPageSize);
 
   const table = useReactTable({
@@ -35,5 +39,11 @@ export function useDataTable<TData>({ data, columns, defaultPageSize = 10 }: Use
     table.setPageIndex(0);
   };
 
-  return { table, sorting, setSorting, pageSize, setPageSize: handleSetPageSize };
+  return {
+    table,
+    sorting,
+    setSorting,
+    pageSize,
+    setPageSize: handleSetPageSize,
+  };
 }

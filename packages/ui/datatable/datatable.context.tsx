@@ -1,4 +1,6 @@
-import { createContext } from 'react';
-import type { DataTableContextValue } from './datatable.types';
+import { createContext } from "react";
+import type { DataTableContextValue } from "./datatable.types";
 
-export const DataTableContext = createContext<DataTableContextValue | null>(null);
+export const DataTableContext = createContext<DataTableContextValue | null>(
+  null,
+);

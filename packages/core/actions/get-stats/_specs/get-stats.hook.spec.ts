@@ -1,14 +1,14 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { renderHook, waitFor } from '@testing-library/react';
-import { createElement, type PropsWithChildren } from 'react';
-import { describe, expect, it, vi } from 'vitest';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { renderHook, waitFor } from "@testing-library/react";
+import { createElement, type PropsWithChildren } from "react";
+import { describe, expect, it, vi } from "vitest";
 
-import { useGetStats } from '../get-stats.hook';
-import { getStats } from '../get-stats.request';
-import type { GetStatsResponse } from '../get-stats.types';
-import statsResponseFixture from './fixtures/get-stats.response.json';
+import { useGetStats } from "../get-stats.hook";
+import { getStats } from "../get-stats.request";
+import type { GetStatsResponse } from "../get-stats.types";
+import statsResponseFixture from "./fixtures/get-stats.response.json";
 
-vi.mock('../get-stats.request', () => ({
+vi.mock("../get-stats.request", () => ({
   getStats: vi.fn(),
 }));
 
@@ -22,12 +22,16 @@ function createWrapper() {
   });
 
   return function Wrapper({ children }: PropsWithChildren) {
-    return createElement(QueryClientProvider, { client: queryClient }, children);
+    return createElement(
+      QueryClientProvider,
+      { client: queryClient },
+      children,
+    );
   };
 }
 
-describe('useGetStats', () => {
-  it('returns stats values from fixture response', async () => {
+describe("useGetStats", () => {
+  it("returns stats values from fixture response", async () => {
     const mockResponse = statsResponseFixture as GetStatsResponse;
 
     vi.mocked(getStats).mockResolvedValueOnce(mockResponse);

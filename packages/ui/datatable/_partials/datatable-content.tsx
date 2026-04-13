@@ -1,4 +1,4 @@
-import { Table } from '@mantine/core';
+import { Table } from "@mantine/core";
 
 export function DataTableContent({ children }: { children: React.ReactNode }) {
   return (

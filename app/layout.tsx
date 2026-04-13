@@ -1,13 +1,13 @@
-import type { Metadata } from 'next';
-import '@mantine/core/styles.css';
-import '@mantine/notifications/styles.css';
-import './globals.css';
+import type { Metadata } from "next";
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+import "./globals.css";
 
-import { AppMantineProvider } from './mantine-provider';
+import { AppMantineProvider } from "./mantine-provider";
 
 export const metadata: Metadata = {
-  title: 'IoT Dashboard',
-  description: 'IoT Dashboard',
+  title: "IoT Dashboard",
+  description: "IoT Dashboard",
 };
 
 export default function RootLayout({
@@ -18,9 +18,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
-        <AppMantineProvider>
-          {children}
-        </AppMantineProvider>
+        <AppMantineProvider>{children}</AppMantineProvider>
       </body>
     </html>
   );

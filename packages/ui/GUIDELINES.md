@@ -10,6 +10,6 @@
 
 - A TSX file must have only 1 function
 
-- Partials / Compounds parts must be inside {currentComponent}/_partials folder
+- Partials / Compounds parts must be inside {currentComponent}/\_partials folder
 
-- All components / functions if written by hand, must have spec with Vitest in {currentComponent}/_tests
+- All components / functions if written by hand, must have spec with Vitest in {currentComponent}/\_tests

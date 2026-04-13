@@ -1,2 +1,6 @@
-export { DataTable } from './datatable';
-export type { DataTableProps, DataTableBodyProps, DataTableFooterProps } from './datatable.types';
+export { DataTable } from "./datatable";
+export type {
+  DataTableProps,
+  DataTableBodyProps,
+  DataTableFooterProps,
+} from "./datatable.types";

@@ -1,6 +1,13 @@
-import type { UseFormReturnType } from '@mantine/form';
-import { Button, Paper, PasswordInput, Stack, Text, TextInput } from '@mantine/core';
-import type { LoginPageFormValues } from '../login-page.schema';
+import type { UseFormReturnType } from "@mantine/form";
+import {
+  Button,
+  Paper,
+  PasswordInput,
+  Stack,
+  Text,
+  TextInput,
+} from "@mantine/core";
+import type { LoginPageFormValues } from "../login-page.schema";
 
 interface LoginPageFormProps {
   emailLabel: string;
@@ -33,16 +40,20 @@ export function LoginPageForm({
             label={emailLabel}
             placeholder={emailPlaceholder}
             type="email"
-            key={form.key('email')}
-            {...form.getInputProps('email')}
+            key={form.key("email")}
+            {...form.getInputProps("email")}
           />
           <PasswordInput
             label={passwordLabel}
             placeholder={passwordPlaceholder}
-            key={form.key('password')}
-            {...form.getInputProps('password')}
+            key={form.key("password")}
+            {...form.getInputProps("password")}
           />
-          {error ? <Text c="red" size="sm">{error}</Text> : null}
+          {error ? (
+            <Text c="red" size="sm">
+              {error}
+            </Text>
+          ) : null}
           <Button type="submit" fullWidth loading={isLoading} mt="xs">
             {submitLabel}
           </Button>

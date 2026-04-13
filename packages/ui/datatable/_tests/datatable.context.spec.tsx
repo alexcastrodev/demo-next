@@ -1,26 +1,26 @@
-import { describe, expect, it } from 'vitest';
-import { renderHook } from '@testing-library/react';
-import { DataTableContext, useDataTableContext } from '../datatable.provider';
-import type { DataTableContextValue } from '../datatable.types';
+import { describe, expect, it } from "vitest";
+import { renderHook } from "@testing-library/react";
+import { DataTableContext, useDataTableContext } from "../datatable.provider";
+import type { DataTableContextValue } from "../datatable.types";
 
 const mockContext = {
-  table:      {} as any,
-  columns:    [],
-  sorting:    [],
+  table: {} as any,
+  columns: [],
+  sorting: [],
   setSorting: () => {},
-  pageSize:   10,
+  pageSize: 10,
   setPageSize: () => {},
-  isLoading:  false,
+  isLoading: false,
 } satisfies DataTableContextValue;
 
-describe('useDataTableContext', () => {
-  it('throws when used outside DataTableContext', () => {
-    expect(() =>
-      renderHook(() => useDataTableContext())
-    ).toThrow('DataTable compound components must be used inside <DataTable>');
+describe("useDataTableContext", () => {
+  it("throws when used outside DataTableContext", () => {
+    expect(() => renderHook(() => useDataTableContext())).toThrow(
+      "DataTable compound components must be used inside <DataTable>",
+    );
   });
 
-  it('returns context value when inside provider', () => {
+  it("returns context value when inside provider", () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <DataTableContext.Provider value={mockContext}>
         {children}

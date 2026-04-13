@@ -1,6 +1,6 @@
 # App
 
-- In the app folder, pages should be only skeleton / layout of application. 
+- In the app folder, pages should be only skeleton / layout of application.
 
 - All pages should import modules from packages/modules to build an application
 

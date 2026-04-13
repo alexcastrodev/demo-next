@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import { useForm } from '@mantine/form';
-import { schemaResolver } from '@mantine/form';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useTranslation } from 'core/i18n';
-import { useLogin } from 'core/actions/login/login.hook';
-import { useUserState } from 'core/states/use-user-state';
-import { loginPageSchema, type LoginPageFormValues } from './login-page.schema';
+import { useForm } from "@mantine/form";
+import { schemaResolver } from "@mantine/form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useTranslation } from "core/i18n";
+import { useLogin } from "core/actions/login/login.hook";
+import { useUserState } from "core/states/use-user-state";
+import { loginPageSchema, type LoginPageFormValues } from "./login-page.schema";
 
 export function useLoginPage() {
   const { t } = useTranslation();
   const router = useRouter();
   const setToken = useUserState((state) => state.setToken);
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const form = useForm<LoginPageFormValues>({
-    mode: 'uncontrolled',
+    mode: "uncontrolled",
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validate: schemaResolver(loginPageSchema, { sync: true }),
     validateInputOnBlur: true,
@@ -29,15 +29,15 @@ export function useLoginPage() {
   const mutation = useLogin({
     onSuccess: ({ token }) => {
       setToken(token);
-      router.push('/dashboard');
+      router.push("/dashboard");
     },
     onError: (mutationError) => {
-      setError(mutationError.message || t('auth.serverError'));
+      setError(mutationError.message || t("auth.serverError"));
     },
   });
 
   async function handleSubmit(values: LoginPageFormValues) {
-    setError('');
+    setError("");
 
     try {
       await mutation.mutateAsync(values);

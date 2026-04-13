@@ -1,9 +1,9 @@
-import { applyRequestInterceptor } from './interceptors/request';
-import { applyResponseInterceptor } from './interceptors/response';
+import { applyRequestInterceptor } from "./interceptors/request";
+import { applyResponseInterceptor } from "./interceptors/response";
 
-type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
-export interface RequestOptions extends Omit<RequestInit, 'method' | 'body'> {
+export interface RequestOptions extends Omit<RequestInit, "method" | "body"> {
   params?: Record<string, string | number | boolean>;
   body?: unknown;
 }
@@ -11,18 +11,24 @@ export interface RequestOptions extends Omit<RequestInit, 'method' | 'body'> {
 export class HttpClient {
   constructor(private readonly baseURL: string) {}
 
-  async request<T>(method: HttpMethod, path: string, options: RequestOptions = {}): Promise<T> {
+  async request<T>(
+    method: HttpMethod,
+    path: string,
+    options: RequestOptions = {},
+  ): Promise<T> {
     const { params, body, ...rest } = options;
 
     let url = `${this.baseURL}${path}`;
     if (params) {
       const search = new URLSearchParams(
-        Object.entries(params).map(([k, v]) => [k, String(v)])
+        Object.entries(params).map(([k, v]) => [k, String(v)]),
       );
       url = `${url}?${search.toString()}`;
     }
 
-    const headers = applyRequestInterceptor(new Headers(rest.headers as HeadersInit));
+    const headers = applyRequestInterceptor(
+      new Headers(rest.headers as HeadersInit),
+    );
 
     const response = await fetch(url, {
       ...rest,
@@ -37,22 +43,22 @@ export class HttpClient {
   }
 
   get<T>(path: string, options?: RequestOptions) {
-    return this.request<T>('GET', path, options);
+    return this.request<T>("GET", path, options);
   }
 
   post<T>(path: string, body?: unknown, options?: RequestOptions) {
-    return this.request<T>('POST', path, { ...options, body });
+    return this.request<T>("POST", path, { ...options, body });
   }
 
   put<T>(path: string, body?: unknown, options?: RequestOptions) {
-    return this.request<T>('PUT', path, { ...options, body });
+    return this.request<T>("PUT", path, { ...options, body });
   }
 
   patch<T>(path: string, body?: unknown, options?: RequestOptions) {
-    return this.request<T>('PATCH', path, { ...options, body });
+    return this.request<T>("PATCH", path, { ...options, body });
   }
 
   delete<T>(path: string, options?: RequestOptions) {
-    return this.request<T>('DELETE', path, options);
+    return this.request<T>("DELETE", path, options);
   }
 }

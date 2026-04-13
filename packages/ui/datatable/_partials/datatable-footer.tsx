@@ -1,20 +1,24 @@
-import { Group, Pagination, Select, Text } from '@mantine/core';
+import { Group, Pagination, Select, Text } from "@mantine/core";
 
-import { useDataTableContext } from '../datatable.provider';
-import { PAGE_SIZE_OPTIONS } from '../datatable.constants';
-import type { DataTableFooterProps } from '../datatable.types';
+import { useDataTableContext } from "../datatable.provider";
+import { PAGE_SIZE_OPTIONS } from "../datatable.constants";
+import type { DataTableFooterProps } from "../datatable.types";
 
-export function DataTableFooter({ rowsPerPageLabel = 'Linhas por página:' }: DataTableFooterProps) {
+export function DataTableFooter({
+  rowsPerPageLabel = "Linhas por página:",
+}: DataTableFooterProps) {
   const { table, pageSize, setPageSize } = useDataTableContext();
 
-  const pageCount   = table.getPageCount();
+  const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex + 1;
-  const rowCount    = table.getRowCount();
+  const rowCount = table.getRowCount();
 
   return (
     <Group justify="space-between" mt="md">
       <Group gap="xs">
-        <Text size="sm" c="dimmed">{rowsPerPageLabel}</Text>
+        <Text size="sm" c="dimmed">
+          {rowsPerPageLabel}
+        </Text>
         <Select
           size="xs"
           w={70}
@@ -33,7 +37,7 @@ export function DataTableFooter({ rowsPerPageLabel = 'Linhas por página:' }: Da
       />
 
       <Text size="sm" c="dimmed">
-        {rowCount} resultado{rowCount !== 1 ? 's' : ''}
+        {rowCount} resultado{rowCount !== 1 ? "s" : ""}
       </Text>
     </Group>
   );
