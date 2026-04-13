@@ -6,6 +6,8 @@ require 'jwt'
 require 'json'
 
 require_relative 'config/boot'
+require 'graphql'
+require_relative 'graphql/app_schema'
 
 JWT_SECRET = ENV.fetch('JWT_SECRET', 'dev_secret_change_in_production')
 JWT_ALGO   = 'HS256'.freeze
@@ -196,6 +198,21 @@ patch '/iot-events/:id' do
   end
 
   json event.attributes
+end
+
+# ── GraphQL ────────────────────────────────────────────────────────────────────
+
+post '/graphql' do
+  authenticate!
+
+  body_params = json_body_params
+  result = AppSchema.execute(
+    body_params[:query],
+    variables: body_params[:variables] || {},
+    context: { current_user: current_user },
+  )
+
+  json result.to_h
 end
 
 delete '/iot-events/:id' do

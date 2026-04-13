@@ -7,6 +7,7 @@ export default {
     cancel: "Cancelar",
     delete: "Excluir",
     edit: "Editar",
+    back: "Voltar",
     logout: "Sair",
     welcome: "Bem-vindo ao painel.",
   },
@@ -42,6 +43,30 @@ export default {
       ntu: "Turbidez (NTU)",
       vbat: "Bateria",
       rssi: "RSSI",
+    },
+  },
+  deviceReadings: {
+    title: "Leituras",
+    waterQuality: "Qualidade da Água",
+    telemetry: "Telemetria",
+    columns: {
+      ph: "pH",
+      conductivity: "Condutividade",
+      turbidity: "Turbidez",
+      temperature: "Temperatura",
+      battery: "Bateria",
+      satellites: "Satélites",
+      type: "Tipo",
+      signalStrength: "Intensidade do Sinal",
+      recordedAt: "Registrado em",
+    },
+  },
+  devices: {
+    title: "Dispositivos",
+    columns: {
+      deviceId: "ID do Dispositivo",
+      eventCount: "Eventos",
+      lastSeenAt: "Última vez visto",
     },
   },
   iotEvents: {

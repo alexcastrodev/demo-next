@@ -7,7 +7,7 @@ import type { DataTableBodyProps } from "../datatable.types";
 export function DataTableBody({
   emptyMessage = "Nenhum resultado encontrado.",
 }: DataTableBodyProps) {
-  const { table, columns } = useDataTableContext();
+  const { table, columns, onRowClick } = useDataTableContext();
   const rows = table.getRowModel().rows;
 
   return (
@@ -24,7 +24,11 @@ export function DataTableBody({
         </Table.Tr>
       ) : (
         rows.map((row) => (
-          <Table.Tr key={row.id}>
+          <Table.Tr
+            key={row.id}
+            onClick={() => onRowClick?.(row)}
+            style={{ cursor: onRowClick ? "pointer" : undefined }}
+          >
             {row.getVisibleCells().map((cell) => {
               const { sticky } = cell.column.columnDef.meta ?? {};
               const size = cell.column.columnDef.size;

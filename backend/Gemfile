@@ -13,6 +13,7 @@ gem 'rake'
 gem 'rack-cors', '~> 2.0'
 gem 'rackup'
 gem 'puma'
+gem 'graphql', '~> 2.0'
 
 group :development, :test do
 end

@@ -30,6 +30,7 @@ export function DataTableProvider<TData>({
   pageCount,
   onPageChange,
   onPageSizeChange,
+  onRowClick,
   children,
 }: DataTableProps<TData> & { children: React.ReactNode }) {
   const { table, sorting, setSorting, pageSize, setPageSize, setPageIndex } =
@@ -57,6 +58,7 @@ export function DataTableProvider<TData>({
           setPageSize,
           setPageIndex,
           isLoading,
+          onRowClick,
         } as DataTableContextValue
       }
     >

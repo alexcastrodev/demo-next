@@ -7,6 +7,7 @@ export default {
     cancel: "Cancel",
     delete: "Delete",
     edit: "Edit",
+    back: "Back",
     logout: "Logout",
     welcome: "Welcome to the dashboard.",
   },
@@ -42,6 +43,30 @@ export default {
       ntu: "Turbidity (NTU)",
       vbat: "Battery",
       rssi: "RSSI",
+    },
+  },
+  deviceReadings: {
+    title: "Readings",
+    waterQuality: "Water Quality",
+    telemetry: "Telemetry",
+    columns: {
+      ph: "pH",
+      conductivity: "Conductivity",
+      turbidity: "Turbidity",
+      temperature: "Temperature",
+      battery: "Battery",
+      satellites: "Satellites",
+      type: "Type",
+      signalStrength: "Signal Strength",
+      recordedAt: "Recorded at",
+    },
+  },
+  devices: {
+    title: "Devices",
+    columns: {
+      deviceId: "Device ID",
+      eventCount: "Events",
+      lastSeenAt: "Last seen",
     },
   },
   iotEvents: {

@@ -1,4 +1,4 @@
-import type { ColumnDef, SortingState, Table } from "@tanstack/react-table";
+import type { ColumnDef, Row, SortingState, Table } from "@tanstack/react-table";
 
 declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,6 +18,7 @@ export interface DataTableProps<TData> {
   pageCount?: number;
   onPageChange?: (page: number) => void;
   onPageSizeChange?: (size: number) => void;
+  onRowClick?: (row: Row<TData>) => void;
 }
 
 export interface DataTableContextValue<TData = unknown> {
@@ -29,6 +30,7 @@ export interface DataTableContextValue<TData = unknown> {
   setPageSize: (size: number) => void;
   setPageIndex: (index: number) => void;
   isLoading: boolean;
+  onRowClick?: (row: Row<TData>) => void;
 }
 
 export interface DataTableBodyProps {
