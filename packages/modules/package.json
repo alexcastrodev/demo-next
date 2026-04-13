@@ -12,8 +12,10 @@
   "dependencies": {
     "@mantine/core": "^9",
     "@tabler/icons-react": "^3",
+    "@tanstack/react-table": "^8",
     "core": "*",
-    "next": "16.2.3"
+    "next": "16.2.3",
+    "ui": "*"
   },
   "peerDependencies": {
     "react": ">=18",

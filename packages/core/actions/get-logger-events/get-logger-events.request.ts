@@ -1,14 +1,17 @@
 import { api } from "../../api";
 import { buildQueryParams } from "../../utils/build-query-params";
+import { serializeLoggerEvent } from "../../serializers";
 import type {
   GetLoggerEventsParams,
-  GetLoggerEventsResponse,
+  GetLoggerEventsResponse as RawGetLoggerEventsResponse,
 } from "./get-logger-events.types";
+import type { LoggerEvent, Result } from "../../entities";
 
 export async function getLoggerEvents(
   params: GetLoggerEventsParams = {},
-): Promise<GetLoggerEventsResponse> {
-  return api.get<GetLoggerEventsResponse>("/iot-events", {
+): Promise<Result<LoggerEvent>> {
+  const raw = await api.get<RawGetLoggerEventsResponse>("/iot-events", {
     params: buildQueryParams(params),
   });
+  return { ...raw, data: raw.data.map(serializeLoggerEvent) };
 }

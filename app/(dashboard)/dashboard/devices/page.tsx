@@ -53,7 +53,9 @@ export default function DevicesPage() {
           data={data?.devices ?? []}
           columns={columns}
           isLoading={isFetching}
-          onRowClick={(row) => router.push(`/dashboard/devices/${row.original.deviceId}`)}
+          onRowClick={(row) =>
+            router.push(`/dashboard/devices/${row.original.deviceId}`)
+          }
         >
           <DataTable.Content>
             <DataTable.Header />

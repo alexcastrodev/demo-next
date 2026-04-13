@@ -5,7 +5,8 @@ import { describe, expect, it, vi } from "vitest";
 
 import { useGetStats } from "../get-stats.hook";
 import { getStats } from "../get-stats.request";
-import type { GetStatsResponse } from "../get-stats.types";
+import type { GetStatsResponse as RawGetStatsResponse } from "../get-stats.types";
+import { serializeStats } from "../../../serializers";
 import statsResponseFixture from "./fixtures/get-stats.response.json";
 
 vi.mock("../get-stats.request", () => ({
@@ -31,8 +32,9 @@ function createWrapper() {
 }
 
 describe("useGetStats", () => {
-  it("returns stats values from fixture response", async () => {
-    const mockResponse = statsResponseFixture as GetStatsResponse;
+  it("returns canonical stats values serialized from backend fixture", async () => {
+    const raw = statsResponseFixture as RawGetStatsResponse;
+    const mockResponse = serializeStats(raw);
 
     vi.mocked(getStats).mockResolvedValueOnce(mockResponse);
 
@@ -44,7 +46,8 @@ describe("useGetStats", () => {
 
     expect(getStats).toHaveBeenCalledTimes(1);
     expect(result.current.data).toEqual(mockResponse);
-    expect(result.current.data?.total_events).toBe(1000);
-    expect(result.current.data?.averages.ph).toBe(7.21);
+    expect(result.current.data?.totalEvents).toBe(1000);
+    expect(result.current.data?.averages?.ph).toBe(7.21);
+    expect(result.current.data?.eventsPerDevice?.[0]?.deviceId).toBe("DEV001");
   });
 });

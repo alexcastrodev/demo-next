@@ -7,8 +7,10 @@ import { useGetLoggerEvents } from "../get-logger-events.hook";
 import { getLoggerEvents } from "../get-logger-events.request";
 import type {
   GetLoggerEventsParams,
-  GetLoggerEventsResponse,
+  GetLoggerEventsResponse as RawGetLoggerEventsResponse,
 } from "../get-logger-events.types";
+import { serializeLoggerEvent } from "../../../serializers";
+import type { LoggerEvent, Result } from "../../../entities";
 import paramsFixture from "./fixtures/get-logger-events.params.json";
 import responseFixture from "./fixtures/get-logger-events.response.json";
 
@@ -35,9 +37,13 @@ function createWrapper() {
 }
 
 describe("useGetLoggerEvents", () => {
-  it("returns paginated logger events from fixtures", async () => {
+  it("returns canonical logger events serialized from backend fixture", async () => {
     const params = paramsFixture as GetLoggerEventsParams;
-    const mockResponse = responseFixture as GetLoggerEventsResponse;
+    const raw = responseFixture as RawGetLoggerEventsResponse;
+    const mockResponse: Result<LoggerEvent> = {
+      ...raw,
+      data: raw.data.map(serializeLoggerEvent),
+    };
 
     vi.mocked(getLoggerEvents).mockResolvedValueOnce(mockResponse);
 
@@ -50,7 +56,8 @@ describe("useGetLoggerEvents", () => {
     expect(getLoggerEvents).toHaveBeenCalledTimes(1);
     expect(getLoggerEvents).toHaveBeenCalledWith(params);
     expect(result.current.data).toEqual(mockResponse);
-    expect(result.current.data?.data[0].device_id).toBe("DEV003");
+    expect(result.current.data?.data[0].deviceId).toBe("DEV003");
+    expect(result.current.data?.data[0].createdAt).toBeInstanceOf(Date);
     expect(result.current.data?.total_pages).toBe(20);
   });
 });

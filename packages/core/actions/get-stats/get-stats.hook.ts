@@ -1,11 +1,11 @@
 import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
 import { getStats } from "./get-stats.request";
-import type { GetStatsResponse } from "./get-stats.types";
+import type { Stats } from "../../entities";
 
 export const getStatsKey = ["stats"];
 
-export function useGetStats(queryProps?: UseQueryOptions<GetStatsResponse>) {
-  return useQuery<GetStatsResponse>({
+export function useGetStats(queryProps?: UseQueryOptions<Stats>) {
+  return useQuery<Stats>({
     queryKey: getStatsKey,
     queryFn: getStats,
     ...queryProps,

@@ -16,6 +16,7 @@
     "graphql-request": "^7.4.0",
     "i18next": "^25",
     "react-i18next": "^15",
+    "zod": "^4.3.6",
     "zustand": "^5"
   },
   "peerDependencies": {

@@ -1,4 +1,8 @@
-import { keepPreviousData, useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useQuery,
+  type UseQueryOptions,
+} from "@tanstack/react-query";
 import { getDeviceReadings } from "./get-device-readings.request";
 import type {
   GetDeviceReadingsParams,
@@ -16,7 +20,11 @@ export function useGetDeviceReadings(
   queryProps?: UseQueryOptions<GetDeviceReadingsResponse>,
 ) {
   return useQuery<GetDeviceReadingsResponse>({
-    queryKey: getDeviceReadingsKey(params.deviceId, params.page, params.perPage),
+    queryKey: getDeviceReadingsKey(
+      params.deviceId,
+      params.page,
+      params.perPage,
+    ),
     queryFn: () => getDeviceReadings(params),
     enabled: Boolean(params.deviceId),
     placeholderData: keepPreviousData,

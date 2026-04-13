@@ -1,21 +1,7 @@
-export interface LoggerEvent {
-  id: number;
-  key_tag: string;
-  device_id: string;
-  key_ncy: number | null;
-  key_ph: number | null;
-  key_mtu: number | null;
-  key_tur: number | null;
-  key_cnd: number | null;
-  key_tmp: number | null;
-  key_ntu: number | null;
-  key_vbat: number | null;
-  key_nsat: number | null;
-  key_rssi: number | null;
-  sensor_data: string | null;
-  created_at: string;
-  updated_at: string;
-}
+import type { Result } from "../../common/result";
+import type { LoggerEvent } from "../../types/api";
+
+export type { LoggerEvent } from "../../types/api";
 
 export interface GetLoggerEventsParams {
   page?: number;
@@ -25,10 +11,4 @@ export interface GetLoggerEventsParams {
   sort_dir?: "asc" | "desc";
 }
 
-export interface GetLoggerEventsResponse {
-  data: LoggerEvent[];
-  total: number;
-  page: number;
-  per_page: number;
-  total_pages: number;
-}
+export type GetLoggerEventsResponse = Result<LoggerEvent>;

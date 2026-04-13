@@ -1,6 +1,8 @@
 import { gql } from "graphql-request";
 import { graphqlClient } from "../../api/graphql-client";
-import type { GetDevicesResponse } from "./get-devices.types";
+import { serializeDevice } from "../../serializers";
+import type { GetDevicesResponse as RawGetDevicesResponse } from "./get-devices.types";
+import type { GetDevicesResponse } from "../../entities";
 
 const QUERY = gql`
   query GetDevices {
@@ -13,5 +15,6 @@ const QUERY = gql`
 `;
 
 export async function getDevices(): Promise<GetDevicesResponse> {
-  return graphqlClient.request<GetDevicesResponse>(QUERY);
+  const raw = await graphqlClient.request<RawGetDevicesResponse>(QUERY);
+  return { devices: raw.devices.map(serializeDevice) };
 }
