@@ -7,7 +7,7 @@ import { useGetLoggerEvents } from "../get-logger-events.hook";
 import { getLoggerEvents } from "../get-logger-events.request";
 import type {
   GetLoggerEventsParams,
-  GetLoggerEventsResponse as RawGetLoggerEventsResponse,
+  GetLoggerEventsRawResponse,
 } from "../get-logger-events.types";
 import { serializeLoggerEvent } from "../../../serializers";
 import type { LoggerEvent, Result } from "../../../entities";
@@ -39,7 +39,7 @@ function createWrapper() {
 describe("useGetLoggerEvents", () => {
   it("returns canonical logger events serialized from backend fixture", async () => {
     const params = paramsFixture as GetLoggerEventsParams;
-    const raw = responseFixture as RawGetLoggerEventsResponse;
+    const raw = responseFixture as GetLoggerEventsRawResponse;
     const mockResponse: Result<LoggerEvent> = {
       ...raw,
       data: raw.data.map(serializeLoggerEvent),

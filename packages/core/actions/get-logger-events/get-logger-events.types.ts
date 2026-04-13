@@ -1,14 +1,16 @@
 import type { Result } from "../../common/result";
-import type { LoggerEvent } from "../../types/api";
+import type {
+  DeviceFilterParams,
+  PaginationParams,
+  PerPageParams,
+  SortParams,
+} from "../_shared/action.types";
+import type { LoggerEvent as RawLoggerEvent } from "../../types/api";
+import type { LoggerEvent } from "../../entities";
 
-export type { LoggerEvent } from "../../types/api";
+export interface GetLoggerEventsParams
+  extends PaginationParams, PerPageParams, DeviceFilterParams, SortParams {}
 
-export interface GetLoggerEventsParams {
-  page?: number;
-  per_page?: number;
-  device_id?: string;
-  sort_by?: string;
-  sort_dir?: "asc" | "desc";
-}
+export type GetLoggerEventsRawResponse = Result<RawLoggerEvent>;
 
 export type GetLoggerEventsResponse = Result<LoggerEvent>;

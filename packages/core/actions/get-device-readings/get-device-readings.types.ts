@@ -5,9 +5,10 @@ export type {
   TelemetryReading,
   WaterQualityReading,
 } from "../../types/api";
+import type {
+  DeviceByIdParams,
+  GraphqlPaginationParams,
+} from "../_shared/action.types";
 
-export interface GetDeviceReadingsParams {
-  deviceId: string;
-  page?: number;
-  perPage?: number;
-}
+export interface GetDeviceReadingsParams
+  extends DeviceByIdParams, GraphqlPaginationParams {}

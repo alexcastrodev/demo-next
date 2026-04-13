@@ -1,9 +1,8 @@
 import type { LoggerEvent as RawLoggerEvent } from "../../types/api";
 import type { LoggerEvent } from "../../entities";
+import type { ActionByIdParams } from "../_shared/action.types";
 
-export interface GetLoggerEventParams {
-  id: number;
-}
+export interface GetLoggerEventParams extends ActionByIdParams {}
 
 export type GetLoggerEventRawResponse = RawLoggerEvent;
 

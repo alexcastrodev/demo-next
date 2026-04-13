@@ -4,7 +4,7 @@ import { api } from "../../../api";
 import { getLoggerEvents } from "../get-logger-events.request";
 import type {
   GetLoggerEventsParams,
-  GetLoggerEventsResponse,
+  GetLoggerEventsRawResponse,
 } from "../get-logger-events.types";
 import paramsFixture from "./fixtures/get-logger-events.params.json";
 import responseFixture from "./fixtures/get-logger-events.response.json";
@@ -22,7 +22,7 @@ describe("getLoggerEvents request", () => {
 
   it("serializes raw backend payload to canonical logger events", async () => {
     const params = paramsFixture as GetLoggerEventsParams;
-    const raw = responseFixture as GetLoggerEventsResponse;
+    const raw = responseFixture as GetLoggerEventsRawResponse;
 
     vi.mocked(api.get).mockResolvedValue(raw);
 
