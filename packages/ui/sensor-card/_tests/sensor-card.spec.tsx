@@ -1,10 +1,10 @@
-import { MantineProvider } from '@mantine/core';
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { SensorCard } from '../sensor-card';
+import { MantineProvider } from "@mantine/core";
+import { render, screen } from "@testing-library/react";
+import { describe, expect, it } from "vitest";
+import { SensorCard } from "../sensor-card";
 
-describe('SensorCard', () => {
-  it('renders the value with unit', () => {
+describe("SensorCard", () => {
+  it("renders the value with unit", () => {
     render(
       <SensorCard
         icon={<span>sensor</span>}
@@ -13,16 +13,18 @@ describe('SensorCard', () => {
         value={22}
       />,
       {
-        wrapper: ({ children }) => <MantineProvider>{children}</MantineProvider>,
-      }
+        wrapper: ({ children }) => (
+          <MantineProvider>{children}</MantineProvider>
+        ),
+      },
     );
 
-    expect(screen.getByText('Temperature')).toBeDefined();
-    expect(screen.getByText('22 °C')).toBeDefined();
-    expect(screen.getByText('sensor')).toBeDefined();
+    expect(screen.getByText("Temperature")).toBeDefined();
+    expect(screen.getByText("22 °C")).toBeDefined();
+    expect(screen.getByText("sensor")).toBeDefined();
   });
 
-  it('renders an em dash when value is missing', () => {
+  it("renders an em dash when value is missing", () => {
     render(
       <SensorCard
         icon={<span>sensor</span>}
@@ -31,10 +33,12 @@ describe('SensorCard', () => {
         value={null}
       />,
       {
-        wrapper: ({ children }) => <MantineProvider>{children}</MantineProvider>,
-      }
+        wrapper: ({ children }) => (
+          <MantineProvider>{children}</MantineProvider>
+        ),
+      },
     );
 
-    expect(screen.getByText('—')).toBeDefined();
+    expect(screen.getByText("—")).toBeDefined();
   });
 });

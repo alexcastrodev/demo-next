@@ -1,5 +1,5 @@
-import { Card, Group, Text } from '@mantine/core';
-import type { SensorCardProps } from './sensor-card.types';
+import { Card, Group, Text } from "@mantine/core";
+import type { SensorCardProps } from "./sensor-card.types";
 
 export function SensorCard({ icon, label, unit, value }: SensorCardProps) {
   return (
@@ -11,7 +11,7 @@ export function SensorCard({ icon, label, unit, value }: SensorCardProps) {
         </Text>
       </Group>
       <Text fw={600} size="lg">
-        {value != null ? `${value} ${unit}`.trim() : '—'}
+        {value != null ? `${value} ${unit}`.trim() : "—"}
       </Text>
     </Card>
   );

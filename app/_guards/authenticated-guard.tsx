@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Loader, Stack } from '@mantine/core';
-import { useUserState } from 'core/states/use-user-state';
-import { useRouter } from 'next/navigation';
-import { useEffect, type PropsWithChildren } from 'react';
+import { Loader, Stack } from "@mantine/core";
+import { useUserState } from "core/states/use-user-state";
+import { useRouter } from "next/navigation";
+import { useEffect, type PropsWithChildren } from "react";
 
 export function AuthenticatedGuard({ children }: PropsWithChildren) {
   const hydrated = useUserState((state) => state.hydrated);
@@ -16,7 +16,7 @@ export function AuthenticatedGuard({ children }: PropsWithChildren) {
     }
 
     if (!token) {
-      router.replace('/login');
+      router.replace("/login");
     }
   }, [hydrated, router, token]);
 

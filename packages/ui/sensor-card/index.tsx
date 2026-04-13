@@ -1,1 +1,1 @@
-export { SensorCard } from './sensor-card';
+export { SensorCard } from "./sensor-card";

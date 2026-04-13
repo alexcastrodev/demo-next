@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Loader, Stack } from '@mantine/core';
-import { useUserState } from 'core/states/use-user-state';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+import { Loader, Stack } from "@mantine/core";
+import { useUserState } from "core/states/use-user-state";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const hydrated = useUserState((state) => state.hydrated);
@@ -15,7 +15,7 @@ export default function Home() {
       return;
     }
 
-    router.replace(token ? '/dashboard' : '/login');
+    router.replace(token ? "/dashboard" : "/login");
   }, [hydrated, router, token]);
 
   return (

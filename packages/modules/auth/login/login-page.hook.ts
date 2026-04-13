@@ -19,8 +19,8 @@ export function useLoginPage() {
   const form = useForm<LoginPageFormValues>({
     mode: "uncontrolled",
     initialValues: {
-      email: "",
-      password: "",
+      email: "admin@example.com",
+      password: "password123",
     },
     validate: schemaResolver(loginPageSchema, { sync: true }),
     validateInputOnBlur: true,

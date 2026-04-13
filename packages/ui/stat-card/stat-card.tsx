@@ -1,5 +1,5 @@
-import { Card, Group, Text } from '@mantine/core';
-import type { StatCardProps } from './stat-card.types';
+import { Card, Group, Text } from "@mantine/core";
+import type { StatCardProps } from "./stat-card.types";
 
 export function StatCard({ color, icon, label, value }: StatCardProps) {
   return (
@@ -11,7 +11,7 @@ export function StatCard({ color, icon, label, value }: StatCardProps) {
         <Text c={color}>{icon}</Text>
       </Group>
       <Text fw={700} size="xl">
-        {value.toLocaleString('pt-BR')}
+        {value.toLocaleString("pt-BR")}
       </Text>
     </Card>
   );
