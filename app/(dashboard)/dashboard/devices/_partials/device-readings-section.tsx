@@ -136,13 +136,13 @@ export function DeviceReadingsSection({
 
       {isLoading && <Loader size="sm" />}
 
-      {!isLoading && data?.deviceReadings.length === 0 && (
+      {!isLoading && data?.deviceReadings.data.length === 0 && (
         <Text c="dimmed" size="sm">
           {t("common.empty")}
         </Text>
       )}
 
-      {data?.deviceReadings.map((reading) => {
+      {data?.deviceReadings.data.map((reading) => {
         if (reading.__typename === "WaterQualityReading") {
           return <WaterQualityCard key={reading.id} reading={reading} />;
         }

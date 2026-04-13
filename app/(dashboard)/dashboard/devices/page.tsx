@@ -6,7 +6,7 @@ import { Title, Stack } from "@mantine/core";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useTranslation } from "core/i18n";
 import { useGetDevices } from "core/actions/get-devices/get-devices.hook";
-import type { Device } from "core/actions/get-devices/get-devices.types";
+import type { Device } from "core/entities";
 import { DataTable } from "ui/datatable";
 
 export default function DevicesPage() {
@@ -34,8 +34,8 @@ export default function DevicesPage() {
         enableSorting: true,
         size: 200,
         cell: ({ getValue }) => {
-          const value = getValue<string>();
-          return value ? new Date(value).toLocaleString() : "-";
+          const value = getValue<Date | undefined>();
+          return value ? value.toLocaleString() : "-";
         },
       },
     ],

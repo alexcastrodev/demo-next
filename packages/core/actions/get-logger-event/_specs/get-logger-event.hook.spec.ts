@@ -7,8 +7,9 @@ import { useGetLoggerEvent } from "../get-logger-event.hook";
 import { getLoggerEvent } from "../get-logger-event.request";
 import type {
   GetLoggerEventParams,
-  GetLoggerEventResponse,
+  GetLoggerEventRawResponse,
 } from "../get-logger-event.types";
+import { serializeLoggerEvent } from "../../../serializers";
 import paramsFixture from "./fixtures/get-logger-event.params.json";
 import responseFixture from "./fixtures/get-logger-event.response.json";
 
@@ -35,9 +36,10 @@ function createWrapper() {
 }
 
 describe("useGetLoggerEvent", () => {
-  it("returns a logger event from fixtures", async () => {
+  it("returns a serialized logger event from fixtures", async () => {
     const params = paramsFixture as GetLoggerEventParams;
-    const mockResponse = responseFixture as GetLoggerEventResponse;
+    const raw = responseFixture as GetLoggerEventRawResponse;
+    const mockResponse = serializeLoggerEvent(raw);
 
     vi.mocked(getLoggerEvent).mockResolvedValueOnce(mockResponse);
 
@@ -51,5 +53,7 @@ describe("useGetLoggerEvent", () => {
     expect(getLoggerEvent).toHaveBeenCalledWith(params);
     expect(result.current.data).toEqual(mockResponse);
     expect(result.current.data?.id).toBe(901);
+    expect(result.current.data?.keyTag).toBe("TAG0901");
+    expect(result.current.data?.createdAt).toBeInstanceOf(Date);
   });
 });

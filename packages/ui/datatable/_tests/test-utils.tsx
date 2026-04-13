@@ -47,8 +47,9 @@ export function makeWrapper(
               setSorting: () => {},
               pageSize: 10,
               setPageSize: () => {},
+              setPageIndex: () => {},
               isLoading: overrides.isLoading ?? false,
-            } as DataTableContextValue
+            } as unknown as DataTableContextValue
           }
         >
           {children}

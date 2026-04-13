@@ -43,25 +43,25 @@ export default function DashboardPage() {
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} mb="xl">
         <StatCard
           label={t("dashboard.totalEvents")}
-          value={data?.total_events ?? 0}
+          value={data?.totalEvents ?? 0}
           icon={<IconActivity size={20} />}
           color="blue"
         />
         <StatCard
           label={t("dashboard.totalDevices")}
-          value={data?.total_devices ?? 0}
+          value={data?.totalDevices ?? 0}
           icon={<IconDevices size={20} />}
           color="grape"
         />
         <StatCard
           label={t("dashboard.eventsToday")}
-          value={data?.events_today ?? 0}
+          value={data?.eventsToday ?? 0}
           icon={<IconWifi size={20} />}
           color="teal"
         />
         <StatCard
           label={t("dashboard.eventsLast7d")}
-          value={data?.events_last_7d ?? 0}
+          value={data?.eventsLast7d ?? 0}
           icon={<IconActivity size={20} />}
           color="orange"
         />
@@ -74,7 +74,7 @@ export default function DashboardPage() {
         <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
           <SensorCard
             label={t("dashboard.sensors.ph")}
-            value={data?.averages.ph}
+            value={data?.averages?.ph}
             unit=""
             icon={<IconDroplet size={18} />}
           />
@@ -82,7 +82,7 @@ export default function DashboardPage() {
         <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
           <SensorCard
             label={t("dashboard.sensors.tmp")}
-            value={data?.averages.tmp}
+            value={data?.averages?.temperature}
             unit="°C"
             icon={<IconTemperature size={18} />}
           />
@@ -90,7 +90,7 @@ export default function DashboardPage() {
         <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
           <SensorCard
             label={t("dashboard.sensors.cnd")}
-            value={data?.averages.cnd}
+            value={data?.averages?.conductivity}
             unit="µS/cm"
             icon={<IconWifi size={18} />}
           />
@@ -98,7 +98,7 @@ export default function DashboardPage() {
         <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
           <SensorCard
             label={t("dashboard.sensors.ntu")}
-            value={data?.averages.ntu}
+            value={data?.averages?.turbidity}
             unit="NTU"
             icon={<IconDroplet size={18} />}
           />
@@ -106,7 +106,7 @@ export default function DashboardPage() {
         <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
           <SensorCard
             label={t("dashboard.sensors.vbat")}
-            value={data?.averages.vbat}
+            value={data?.averages?.batteryVoltage}
             unit="V"
             icon={<IconWifi size={18} />}
           />
@@ -114,7 +114,7 @@ export default function DashboardPage() {
         <Grid.Col span={{ base: 12, sm: 6, lg: 4 }}>
           <SensorCard
             label={t("dashboard.sensors.rssi")}
-            value={data?.averages.rssi}
+            value={data?.averages?.signalStrength}
             unit="dBm"
             icon={<IconWifi size={18} />}
           />
@@ -125,12 +125,12 @@ export default function DashboardPage() {
         {t("dashboard.eventsPerDevice")}
       </Title>
       <Stack gap="xs">
-        {data?.events_per_device.map(({ device_id, count }) => (
-          <Card key={device_id} withBorder padding="sm" radius="md">
+        {data?.eventsPerDevice?.map(({ deviceId, count }) => (
+          <Card key={deviceId} withBorder padding="sm" radius="md">
             <Group justify="space-between">
-              <Text fw={500}>{device_id}</Text>
+              <Text fw={500}>{deviceId}</Text>
               <Text size="sm" c="dimmed">
-                {t("dashboard.events_count", { count })}
+                {t("dashboard.events_count", { count: count ?? 0 })}
               </Text>
             </Group>
           </Card>

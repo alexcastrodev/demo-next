@@ -8,7 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "core/i18n";
 import { useUpdateLoggerEvent } from "core/actions/update-logger-event/update-logger-event.hook";
 import { getLoggerEventsKey } from "core/actions/get-logger-events/get-logger-events.hook";
-import type { LoggerEvent } from "core/actions/get-logger-events/get-logger-events.types";
+import type { LoggerEvent } from "core/entities";
 import type { UpdateLoggerEventPayload } from "core/actions/update-logger-event/update-logger-event.types";
 
 type SensorFields = Pick<
@@ -40,33 +40,33 @@ export function EditLoggerEventModal({
 
   const form = useForm<SensorFields>({
     initialValues: {
-      key_ncy: event.key_ncy,
-      key_ph: event.key_ph,
-      key_mtu: event.key_mtu,
-      key_tur: event.key_tur,
-      key_cnd: event.key_cnd,
-      key_tmp: event.key_tmp,
-      key_ntu: event.key_ntu,
-      key_vbat: event.key_vbat,
-      key_nsat: event.key_nsat,
-      key_rssi: event.key_rssi,
-      sensor_data: event.sensor_data,
+      key_ncy: event.efficiency ?? null,
+      key_ph: event.ph ?? null,
+      key_mtu: event.turbidityMtu ?? null,
+      key_tur: event.turbidity ?? null,
+      key_cnd: event.conductivity ?? null,
+      key_tmp: event.temperature ?? null,
+      key_ntu: event.turbidityNtu ?? null,
+      key_vbat: event.batteryVoltage ?? null,
+      key_nsat: event.satellites ?? null,
+      key_rssi: event.signalStrength ?? null,
+      sensor_data: event.sensorData ?? null,
     },
   });
 
   useEffect(() => {
     form.setValues({
-      key_ncy: event.key_ncy,
-      key_ph: event.key_ph,
-      key_mtu: event.key_mtu,
-      key_tur: event.key_tur,
-      key_cnd: event.key_cnd,
-      key_tmp: event.key_tmp,
-      key_ntu: event.key_ntu,
-      key_vbat: event.key_vbat,
-      key_nsat: event.key_nsat,
-      key_rssi: event.key_rssi,
-      sensor_data: event.sensor_data,
+      key_ncy: event.efficiency ?? null,
+      key_ph: event.ph ?? null,
+      key_mtu: event.turbidityMtu ?? null,
+      key_tur: event.turbidity ?? null,
+      key_cnd: event.conductivity ?? null,
+      key_tmp: event.temperature ?? null,
+      key_ntu: event.turbidityNtu ?? null,
+      key_vbat: event.batteryVoltage ?? null,
+      key_nsat: event.satellites ?? null,
+      key_rssi: event.signalStrength ?? null,
+      sensor_data: event.sensorData ?? null,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [event.id]);
@@ -89,11 +89,15 @@ export function EditLoggerEventModal({
   });
 
   const handleSubmit = (values: SensorFields) => {
+    if (event.id == null || !event.keyTag || !event.deviceId) {
+      return;
+    }
+
     updateEvent({
       id: event.id,
       payload: {
-        key_tag: event.key_tag,
-        device_id: event.device_id,
+        key_tag: event.keyTag,
+        device_id: event.deviceId,
         ...values,
       },
     });

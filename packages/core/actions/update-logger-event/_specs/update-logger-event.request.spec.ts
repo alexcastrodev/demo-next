@@ -4,7 +4,7 @@ import { api } from "../../../api";
 import { updateLoggerEvent } from "../update-logger-event.request";
 import type {
   UpdateLoggerEventParams,
-  UpdateLoggerEventResponse,
+  UpdateLoggerEventRawResponse,
 } from "../update-logger-event.types";
 import paramsFixture from "./fixtures/update-logger-event.params.json";
 import responseFixture from "./fixtures/update-logger-event.response.json";
@@ -22,7 +22,7 @@ describe("updateLoggerEvent request", () => {
 
   it("serializes updated logger event from backend response", async () => {
     const params = paramsFixture as UpdateLoggerEventParams;
-    const raw = responseFixture as UpdateLoggerEventResponse;
+    const raw = responseFixture as UpdateLoggerEventRawResponse;
 
     vi.mocked(api.patch).mockResolvedValue(raw);
 

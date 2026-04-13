@@ -59,7 +59,6 @@ export default function IotEventsPage() {
         <IotEventsDatatable
           data={data?.data ?? []}
           isLoading={isFetching}
-          sorting={sorting}
           onSortingChange={setSorting}
           pageCount={data?.total_pages ?? 0}
           onPageChange={setPage}
@@ -69,7 +68,7 @@ export default function IotEventsPage() {
           }}
           perPage={perPage}
           onEdit={setEditingEvent}
-          onDelete={(event) =>
+          onDelete={(event) => {
             modals.openConfirmModal({
               title: t("iotEvents.deleteConfirmTitle"),
               children: t("iotEvents.deleteConfirmMessage"),
@@ -83,8 +82,8 @@ export default function IotEventsPage() {
                   deleteEvent({ id: event.id });
                 }
               },
-            })
-          }
+            });
+          }}
         />
       </Stack>
 

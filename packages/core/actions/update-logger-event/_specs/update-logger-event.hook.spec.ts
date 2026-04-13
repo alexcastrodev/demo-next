@@ -7,8 +7,9 @@ import { useUpdateLoggerEvent } from "../update-logger-event.hook";
 import { updateLoggerEvent } from "../update-logger-event.request";
 import type {
   UpdateLoggerEventParams,
-  UpdateLoggerEventResponse,
+  UpdateLoggerEventRawResponse,
 } from "../update-logger-event.types";
+import { serializeLoggerEvent } from "../../../serializers";
 import paramsFixture from "./fixtures/update-logger-event.params.json";
 import responseFixture from "./fixtures/update-logger-event.response.json";
 
@@ -35,9 +36,10 @@ function createWrapper() {
 }
 
 describe("useUpdateLoggerEvent", () => {
-  it("updates a logger event from fixtures", async () => {
+  it("updates and returns canonical logger event from fixtures", async () => {
     const params = paramsFixture as UpdateLoggerEventParams;
-    const mockResponse = responseFixture as UpdateLoggerEventResponse;
+    const raw = responseFixture as UpdateLoggerEventRawResponse;
+    const mockResponse = serializeLoggerEvent(raw);
 
     vi.mocked(updateLoggerEvent).mockResolvedValueOnce(mockResponse);
 
@@ -52,6 +54,7 @@ describe("useUpdateLoggerEvent", () => {
     expect(updateLoggerEvent).toHaveBeenCalledTimes(1);
     expect(vi.mocked(updateLoggerEvent).mock.calls[0]?.[0]).toEqual(params);
     expect(result.current.data).toEqual(mockResponse);
-    expect(result.current.data?.key_tag).toBe("TAG0901-UPDATED");
+    expect(result.current.data?.keyTag).toBe("TAG0901-UPDATED");
+    expect(result.current.data?.updatedAt).toBeInstanceOf(Date);
   });
 });

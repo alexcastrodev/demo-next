@@ -1,5 +1,6 @@
 import type { UseMutationOptions } from "@tanstack/react-query";
-import type { LoggerEvent } from "../get-logger-events/get-logger-events.types";
+import type { LoggerEvent as RawLoggerEvent } from "../../types/api";
+import type { LoggerEvent } from "../../entities";
 
 export interface UpdateLoggerEventPayload {
   key_tag: string;
@@ -21,6 +22,8 @@ export interface UpdateLoggerEventParams {
   id: number;
   payload: UpdateLoggerEventPayload;
 }
+
+export type UpdateLoggerEventRawResponse = RawLoggerEvent;
 
 export type UpdateLoggerEventResponse = LoggerEvent;
 

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { api } from "../../../api";
 import { getLoggerEvent } from "../get-logger-event.request";
-import type { GetLoggerEventResponse } from "../get-logger-event.types";
+import type { GetLoggerEventRawResponse } from "../get-logger-event.types";
 import paramsFixture from "./fixtures/get-logger-event.params.json";
 import responseFixture from "./fixtures/get-logger-event.response.json";
 
@@ -18,7 +18,7 @@ describe("getLoggerEvent request", () => {
   });
 
   it("serializes a raw logger event to canonical shape", async () => {
-    const raw = responseFixture as GetLoggerEventResponse;
+    const raw = responseFixture as GetLoggerEventRawResponse;
 
     vi.mocked(api.get).mockResolvedValue(raw);
 
