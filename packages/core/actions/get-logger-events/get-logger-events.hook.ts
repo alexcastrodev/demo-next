@@ -1,4 +1,8 @@
-import { useQuery, type UseQueryOptions } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useQuery,
+  type UseQueryOptions,
+} from "@tanstack/react-query";
 import { getLoggerEvents } from "./get-logger-events.request";
 import type {
   GetLoggerEventsParams,
@@ -17,8 +21,11 @@ export function useGetLoggerEvents(
       params.page ?? null,
       params.per_page ?? null,
       params.device_id ?? null,
+      params.sort_by ?? null,
+      params.sort_dir ?? null,
     ],
     queryFn: () => getLoggerEvents(params),
+    placeholderData: keepPreviousData,
     ...queryProps,
   });
 }

@@ -9,6 +9,21 @@ require_relative 'config/boot'
 
 JWT_SECRET = ENV.fetch('JWT_SECRET', 'dev_secret_change_in_production')
 JWT_ALGO   = 'HS256'.freeze
+IOT_EVENT_ATTRIBUTES = %i[
+  key_tag
+  device_id
+  key_ncy
+  key_ph
+  key_mtu
+  key_tur
+  key_cnd
+  key_tmp
+  key_ntu
+  key_vbat
+  key_nsat
+  key_rssi
+  sensor_data
+].freeze
 
 # CORS
 use Rack::Cors do
@@ -23,6 +38,16 @@ set :database_file, 'config/database.yml'
 # ── Helpers ────────────────────────────────────────────────────────────────────
 
 helpers do
+  def json_body_params
+    request.body.rewind
+    raw_body = request.body.read
+    return {} if raw_body.strip.empty?
+
+    JSON.parse(raw_body, symbolize_names: true)
+  rescue JSON::ParserError
+    halt 400, json(error: 'JSON inválido.')
+  end
+
   def encode_token(payload)
     JWT.encode(payload.merge(exp: (Time.now + 24 * 3600).to_i), JWT_SECRET, JWT_ALGO)
   end
@@ -66,7 +91,7 @@ end
 # ── Auth ───────────────────────────────────────────────────────────────────────
 
 post '/auth/login' do
-  body_params = JSON.parse(request.body.read, symbolize_names: true)
+  body_params = json_body_params
   user = User.find_by(email: body_params[:email]&.downcase)
 
   unless user&.authenticate(body_params[:password])
@@ -130,7 +155,11 @@ end
 get '/iot-events' do
   authenticate!
 
-  scope = IotEvent.recent
+  allowed_columns = %w[id device_id key_tag key_ph key_tmp key_cnd key_ntu key_vbat key_rssi created_at]
+  sort_by  = allowed_columns.include?(params[:sort_by]) ? params[:sort_by] : 'created_at'
+  sort_dir = params[:sort_dir] == 'asc' ? 'ASC' : 'DESC'
+
+  scope = IotEvent.order(Arel.sql("#{sort_by} #{sort_dir}"))
   scope = scope.by_device(params[:device_id]) if params[:device_id].present?
 
   result = paginate(scope)
@@ -148,4 +177,34 @@ get '/iot-events/:id' do
   event = IotEvent.find_by(id: params[:id])
   halt 404, json(error: 'Evento não encontrado.') unless event
   json event.attributes
+end
+
+patch '/iot-events/:id' do
+  authenticate!
+
+  event = IotEvent.find_by(id: params[:id])
+  halt 404, json(error: 'Evento não encontrado.') unless event
+
+  body_params = json_body_params.slice(*IOT_EVENT_ATTRIBUTES)
+
+  if body_params.empty?
+    halt 400, json(error: 'Nenhum atributo informado para atualização.')
+  end
+
+  unless event.update(body_params)
+    halt 422, json(error: event.errors.full_messages.join(', '))
+  end
+
+  json event.attributes
+end
+
+delete '/iot-events/:id' do
+  authenticate!
+
+  event = IotEvent.find_by(id: params[:id])
+  halt 404, json(error: 'Evento não encontrado.') unless event
+
+  event.destroy!
+
+  json id: event.id, deleted: true
 end

@@ -7,6 +7,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { DataTableContext } from "../datatable.provider";
+import type { DataTableContextValue } from "../datatable.types";
 
 interface Row {
   id: number;
@@ -47,7 +48,7 @@ export function makeWrapper(
               pageSize: 10,
               setPageSize: () => {},
               isLoading: overrides.isLoading ?? false,
-            } as any
+            } as DataTableContextValue
           }
         >
           {children}

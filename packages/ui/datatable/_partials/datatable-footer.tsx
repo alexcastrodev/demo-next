@@ -7,7 +7,7 @@ import type { DataTableFooterProps } from "../datatable.types";
 export function DataTableFooter({
   rowsPerPageLabel = "Linhas por página:",
 }: DataTableFooterProps) {
-  const { table, pageSize, setPageSize } = useDataTableContext();
+  const { table, pageSize, setPageSize, setPageIndex } = useDataTableContext();
 
   const pageCount = table.getPageCount();
   const currentPage = table.getState().pagination.pageIndex + 1;
@@ -32,7 +32,7 @@ export function DataTableFooter({
       <Pagination
         total={pageCount}
         value={currentPage}
-        onChange={(page) => table.setPageIndex(page - 1)}
+        onChange={(page) => setPageIndex(page - 1)}
         size="sm"
       />
 

@@ -1,4 +1,5 @@
 import { api } from "../../api";
+import { buildQueryParams } from "../../utils/build-query-params";
 import type {
   GetLoggerEventsParams,
   GetLoggerEventsResponse,
@@ -7,21 +8,7 @@ import type {
 export async function getLoggerEvents(
   params: GetLoggerEventsParams = {},
 ): Promise<GetLoggerEventsResponse> {
-  const queryParams: Record<string, string | number | boolean> = {};
-
-  if (params.page !== undefined) {
-    queryParams.page = params.page;
-  }
-
-  if (params.per_page !== undefined) {
-    queryParams.per_page = params.per_page;
-  }
-
-  if (params.device_id) {
-    queryParams.device_id = params.device_id;
-  }
-
   return api.get<GetLoggerEventsResponse>("/iot-events", {
-    params: queryParams,
+    params: buildQueryParams(params),
   });
 }

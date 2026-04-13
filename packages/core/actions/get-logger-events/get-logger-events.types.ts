@@ -21,6 +21,8 @@ export interface GetLoggerEventsParams {
   page?: number;
   per_page?: number;
   device_id?: string;
+  sort_by?: string;
+  sort_dir?: "asc" | "desc";
 }
 
 export interface GetLoggerEventsResponse {

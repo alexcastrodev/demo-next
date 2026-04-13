@@ -24,13 +24,26 @@ export function DataTableProvider<TData>({
   columns,
   isLoading = false,
   defaultPageSize = 10,
+  manualSorting,
+  onSortingChange,
+  manualPagination,
+  pageCount,
+  onPageChange,
+  onPageSizeChange,
   children,
 }: DataTableProps<TData> & { children: React.ReactNode }) {
-  const { table, sorting, setSorting, pageSize, setPageSize } = useDataTable({
-    data,
-    columns,
-    defaultPageSize,
-  });
+  const { table, sorting, setSorting, pageSize, setPageSize, setPageIndex } =
+    useDataTable({
+      data,
+      columns,
+      defaultPageSize,
+      manualSorting,
+      onSortingChange,
+      manualPagination,
+      pageCount,
+      onPageChange,
+      onPageSizeChange,
+    });
 
   return (
     <DataTableContext.Provider
@@ -42,8 +55,9 @@ export function DataTableProvider<TData>({
           setSorting,
           pageSize,
           setPageSize,
+          setPageIndex,
           isLoading,
-        } as any
+        } as DataTableContextValue
       }
     >
       <Box>{children}</Box>

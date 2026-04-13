@@ -4,7 +4,7 @@ import { DataTableContext, useDataTableContext } from "../datatable.provider";
 import type { DataTableContextValue } from "../datatable.types";
 
 const mockContext = {
-  table: {} as any,
+  table: {} as DataTableContextValue["table"],
   columns: [],
   sorting: [],
   setSorting: () => {},

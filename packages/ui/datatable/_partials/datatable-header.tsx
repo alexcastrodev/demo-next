@@ -14,8 +14,24 @@ export function DataTableHeader() {
             const canSort = header.column.getCanSort();
             const sorted = header.column.getIsSorted();
 
+            const { sticky } = header.column.columnDef.meta ?? {};
+            const size = header.column.columnDef.size;
+
             return (
-              <Table.Th key={header.id}>
+              <Table.Th
+                key={header.id}
+                style={{
+                  width: size,
+                  minWidth: size,
+                  ...(sticky && {
+                    position: "sticky",
+                    right: sticky === "right" ? 0 : undefined,
+                    left: sticky === "left" ? 0 : undefined,
+                    zIndex: 1,
+                    backgroundColor: "var(--mantine-color-body)",
+                  }),
+                }}
+              >
                 {header.isPlaceholder ? null : (
                   <UnstyledButton
                     onClick={
