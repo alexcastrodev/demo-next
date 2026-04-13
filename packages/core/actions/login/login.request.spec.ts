@@ -27,13 +27,10 @@ describe("login request", () => {
   });
 
   it("throws the api error message when the request fails", async () => {
-    const response = new Response(
-      JSON.stringify(errorFixture),
-      {
-        status: 401,
-        headers: { "Content-Type": "application/json" },
-      },
-    );
+    const response = new Response(JSON.stringify(errorFixture), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
 
     vi.mocked(api.post).mockRejectedValue(response);
 
